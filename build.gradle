@@ -1,0 +1,12 @@
+apply plugin: 'scala'
+apply plugin: 'eclipse'
+
+version = '0.0.1'
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	compile 'org.scala-lang:scala-library:2.12.1'
+}
