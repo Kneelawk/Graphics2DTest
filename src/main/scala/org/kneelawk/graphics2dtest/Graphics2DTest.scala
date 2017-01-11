@@ -45,7 +45,7 @@ object Graphics2DTest {
     if (!outDir.exists()) outDir.mkdirs()
 
     var offset = 0;
-    while (new File(outDir, s"out$offset.png").exists()) offset += 1
+    while (new File(outDir, f"out$offset%04d.png").exists()) offset += 1
     println(s"Offset: $offset")
 
     val generators = for (j <- 0 until 20) yield Future {
@@ -88,7 +88,7 @@ object Graphics2DTest {
         g.drawLine(x + 10, y + 28, x + 10, HEIGHT)
       }
 
-      ImageIO.write(image, "png", new File(outDir, s"out${j + offset}.png"))
+      ImageIO.write(image, "png", new File(outDir, f"out${j + offset}%04d.png"))
       println(s"Finished $j")
     }
 
