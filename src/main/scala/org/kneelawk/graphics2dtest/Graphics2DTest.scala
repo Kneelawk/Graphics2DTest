@@ -85,7 +85,7 @@ object Graphics2DTest {
         val y = loc._2
 
         g.fillPolygon(SHAPE.map(_._1 + x), SHAPE.map(_._2 + y), SHAPE.length)
-        g.drawLine(x + 10, y + 28, x + 10, HEIGHT)
+        g.fillRect(x + 9, y + 28, 2, HEIGHT - (y + 28))
       }
 
       ImageIO.write(image, "png", new File(outDir, f"out${j + offset}%04d.png"))
