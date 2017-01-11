@@ -58,7 +58,7 @@ object Graphics2DTest {
       val bg1Bri = rfloat(0.6f, 1f)
       val bg1 = Color.getHSBColor(bg1Hue, bg1Sat, bg1Bri)
 
-      val bg2Hue = rotate(bg1Hue, if (rand.nextBoolean()) rfloat(0.1f, 0.2f) else rfloat(-0.2f, -0.1f), 0f, 1f)
+      val bg2Hue = rotate(bg1Hue, if (rand.nextBoolean()) rfloat(0.15f, 0.25f) else rfloat(-0.25f, -0.15f), 0f, 1f)
       val bg2Sat = bg1Sat
       val bg2Bri = cap(bg1Bri, rfloat(-0.2f, 0.2f), 0f, 1f)
       val bg2 = Color.getHSBColor(bg2Hue, bg2Sat, bg2Bri)
