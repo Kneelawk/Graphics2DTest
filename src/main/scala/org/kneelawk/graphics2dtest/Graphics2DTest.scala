@@ -48,7 +48,7 @@ object Graphics2DTest {
     while (new File(outDir, s"out$offset.png").exists()) offset += 1
     println(s"Offset: $offset")
 
-    val generators = for (j <- 0 until 100) yield Future {
+    val generators = for (j <- 0 until 20) yield Future {
       val image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB)
       val g = image.createGraphics()
       g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -66,7 +66,9 @@ object Graphics2DTest {
       g.setPaint(new GradientPaint(WIDTH / 2, 0, bg1, WIDTH / 2, HEIGHT, bg2))
       g.fillRect(0, 0, WIDTH, HEIGHT)
 
-      for (i <- 0 until (WIDTH * HEIGHT / 1000)) {
+      val locs = (0 until (WIDTH * HEIGHT / 1000) map (i => (rfloat(-20, WIDTH).toInt, rfloat(-30, HEIGHT).toInt))).sortWith(_._2 < _._2)
+
+      for (loc <- locs) {
         val sbg1Hue = rotate(bg1Hue, if (rand.nextBoolean()) rfloat(0.02f, 0.08f) else rfloat(-0.08f, -0.02f), 0f, 1f)
         val sbg1Sat = bg1Sat
         val sbg1Bri = rotate(bg1Bri, rfloat(-0.2f, 0.2f), 0f, 1f)
@@ -79,8 +81,8 @@ object Graphics2DTest {
 
         g.setPaint(new GradientPaint(WIDTH / 2, 0, sbg1, WIDTH / 2, HEIGHT, sbg2))
 
-        val x = rfloat(-20, WIDTH).toInt
-        val y = rfloat(-30, HEIGHT).toInt
+        val x = loc._1
+        val y = loc._2
 
         g.fillPolygon(SHAPE.map(_._1 + x), SHAPE.map(_._2 + y), SHAPE.length)
         g.drawLine(x + 10, y + 28, x + 10, HEIGHT)
@@ -93,7 +95,7 @@ object Graphics2DTest {
     println("Threads started.")
 
     Await.result(Future.sequence(generators), Duration.Inf)
-    
+
     println("All done.")
   }
 }
