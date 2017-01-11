@@ -13,6 +13,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object Graphics2DTest {
+  val NUM_PICTURES = 20
   val WIDTH = 2000
   val HEIGHT = 2000
   val SHAPE = Array((0, 0), (20, 0), (20, 20), (10, 30), (0, 20))
@@ -48,7 +49,7 @@ object Graphics2DTest {
     while (new File(outDir, f"out$offset%04d.png").exists()) offset += 1
     println(s"Offset: $offset")
 
-    val generators = for (j <- 0 until 20) yield Future {
+    val generators = for (j <- 0 until NUM_PICTURES) yield Future {
       val image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB)
       val g = image.createGraphics()
       g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
